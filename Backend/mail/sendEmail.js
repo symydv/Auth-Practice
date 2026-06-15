@@ -1,6 +1,5 @@
 import { verificationTemplate } from "./emailTemplets.js";
 import { transporter } from "./transporter.config.js";
-
 export const sendEmail = async (email, subject, template) => {
   try {
     await transporter.sendMail({
