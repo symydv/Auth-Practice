@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import FloatingShape from './components/FloatingShape'
 import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
-
+import VerifyEmailPage from './pages/VerifyEmailPage'
 function App() {
   return (
     <div className='min-h-screen bg-linear-to-br from-gray-900 via-green-900 to-emerald-900 flex items-center relative overflow-hidden'>
@@ -14,6 +14,7 @@ function App() {
         <Route path='/' element={"Home"}/>
         <Route path='/signup' element={<SignUpPage/>}/>
         <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/verify-email' element={<VerifyEmailPage/>}/>
       </Routes>
     </div>
   )
