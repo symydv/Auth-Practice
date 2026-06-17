@@ -8,7 +8,7 @@ export const generateTokenAndSetCookie = (res, userId) => {
   res.cookie("token", token, {
     httpOnly: true, //xss protection
     secure: process.env.NODE_ENV === "production", //set secure flag in production
-    sameSite: "strict", //csrf protection
+    sameSite: "strict", // use "strict" in production for csrf protection
     maxAge: 7 * 24 * 60 * 60 * 1000 //cookie expires in 7 days  
   })
 
