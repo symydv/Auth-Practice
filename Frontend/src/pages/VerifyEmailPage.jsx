@@ -8,22 +8,36 @@ function VerifyEmailPage() {
   const isLoading = false;
   const navigate = useNavigate();
 
-  const handleChange = (e) =>{
-    e.preventDefault()
-  }
+  const handleChange = (index, value) => {
+    value = value.replace(/\D/g, "");
+    const newCode = [...code];
+    newCode[index] = value;
+    setCode(newCode);
+
+    if (value && index < 5) {
+      inputRef.current[index + 1]?.focus();
+    }
+  };
+
+  const handlePaste = (index, e) => {
+    e.preventDefault();
+    const pastedText = e.clipboardData.getData("text").replace(/\D/g, "");
+    if (!pastedText) return;
+
+    const newCode = [...code];
+    for (let i = 0; i < pastedText.length && index + i < 6; i++) {
+      newCode[index + i] = pastedText[i];
+    }
+    setCode(newCode);
+
+    const focusIndex = Math.min(index + pastedText.length, 5);
+    inputRef.current[focusIndex]?.focus();
+  };
+
   const handleKeyDown = (index, e) => {
-    if (e.key === "Backspace") {
+    if (e.key === "Backspace" && !code[index] && index>0) {
       inputRef.current[index].value = "";
       inputRef.current[index - 1].focus();
-    } else if (e.key === "ArrowLeft") {
-      inputRef.current[index].value = "";
-      inputRef.current[index - 1].focus();
-    } else if (e.key === "ArrowRight") {
-      inputRef.current[index].value = "";
-      inputRef.current[index + 1].focus();
-    } else if(e.key === "numberKey"){
-      inputRef.current[index].value = e.key;
-      inputRef.current[index + 1].focus();
     }
   };
   return (
@@ -45,9 +59,10 @@ function VerifyEmailPage() {
                 key = {index}
                 ref ={(el) => (inputRef.current[index] = el)}
                 type = "text"
-                maxLength = {6}
+                maxLength = '1'
                 value = {digit}
                 onChange = {(e) => handleChange(index, e.target.value)}
+                onPaste = {(e) => handlePaste(index, e)}
                 onKeyDown = {(e) => handleKeyDown(index, e)}
                 className = "w-12 h-12 text-center bg-gray-700 border-2 border-gray-50 bg-opacity-50 backdrop-filter backdrop-blur-xl rounded-lg shadow-xl text-white font-bold text-2xl focus:outline-none focus:border-green-500"
               />
