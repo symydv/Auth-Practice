@@ -4,6 +4,8 @@ import SignUpPage from './pages/SignUpPage'
 import LoginPage from './pages/LoginPage'
 import VerifyEmailPage from './pages/VerifyEmailPage'
 import DashboardPage from './pages/DashboardPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import { Toaster } from 'react-hot-toast'
 import { useAuthStore } from './store/authStore'
 import { useEffect } from 'react'
@@ -31,7 +33,7 @@ const ProtectedRoute = ({children}) => {
 }
 
 function App() {
-  const {isCheckingAuth, checkAuth, isAuthenticated, user} = useAuthStore()
+  const {isCheckingAuth, checkAuth} = useAuthStore()
   useEffect(() => {
     checkAuth()
   },[checkAuth])
@@ -48,6 +50,8 @@ function App() {
           <Route path='/signup' element={<RedirectAuthenticatedUser><SignUpPage/></RedirectAuthenticatedUser>}/>
           <Route path='/login' element={<RedirectAuthenticatedUser><LoginPage/></RedirectAuthenticatedUser>}/>
           <Route path='/verify-email' element={<VerifyEmailPage/>}/>
+          <Route path='/forgot-password' element={<RedirectAuthenticatedUser><ForgotPasswordPage/></RedirectAuthenticatedUser>}/>
+          <Route path='/reset-password/:token' element={<RedirectAuthenticatedUser><ResetPasswordPage /></RedirectAuthenticatedUser>}/>
         </Routes>
       <Toaster/>
     </div>
