@@ -20,9 +20,9 @@ app.use("/api/auth", authRoutes); //here we prefixed all the authroutes with "/a
 
 const __dirname = path.resolve(); //this gives you the absolute path of the current directory
 if(process.env.NODE_ENV === "production"){
-  app.use(express.static(path.join(__dirname, "frontend/dist")));
+  app.use(express.static(path.join(__dirname, "Frontend/dist")));
   app.get("/*splat", (req, res)=>{
-    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+    res.sendFile(path.resolve(__dirname, "Frontend", "dist", "index.html"));
   })
 }
 // This code is used for deployment.
