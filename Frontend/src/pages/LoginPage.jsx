@@ -15,7 +15,7 @@ function LoginPage() {
     e.preventDefault();
     try {
       await login(email, password)
-      navigate("/")
+      navigate("/") 
     } catch (error) {
       console.log(error)
     }
