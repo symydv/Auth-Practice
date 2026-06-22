@@ -10,7 +10,9 @@ export const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 
-  family: 4, // force IPv4
+  tls: {
+    family: 4
+  } // force IPv4
 });
 
 transporter.verify((err) => {
