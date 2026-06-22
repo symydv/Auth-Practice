@@ -1,17 +1,21 @@
 import { verificationTemplate } from "./emailTemplets.js";
 import { transporter } from "./transporter.config.js";
+
 export const sendEmail = async (email, subject, template) => {
   try {
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: `"Auth Team" <${process.env.EMAIL_USER}>`,
       to: email,
       subject,
       text: "This is an account notification email.",
-      html: template
+      html: template,
     });
-    console.log("mail sent successfully")
+
+    console.log("mail sent successfully to", email, "messageId:", info.messageId);
+    return { success: true, messageId: info.messageId };
   } catch (error) {
-    throw new Error(`Error sending the verification email ${error}`)
+    console.error("sendEmail error:", error);
+    throw error;
   }
 };
 
