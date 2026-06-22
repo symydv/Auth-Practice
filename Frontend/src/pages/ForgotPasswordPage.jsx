@@ -48,7 +48,7 @@ export default function ForgotPasswordPage() {
                 {isLoading ? (
                   <Loader className="animate-spin mx-auto" />
                 ) : (
-                  "Send reset link  h"
+                  "Send reset link"
                 )}
               </motion.button>
             </form>
