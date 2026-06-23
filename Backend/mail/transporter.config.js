@@ -1,3 +1,4 @@
+console.log("🔥 BREVO FILE EXECUTED");
 import nodemailer from "nodemailer";
 import "dotenv/config";
 
