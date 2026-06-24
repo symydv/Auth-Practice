@@ -24,12 +24,11 @@ const userschema = new mongoose.Schema({
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   verificationToken: String,
-  emailVerificationExpiry:{
+  verificationTokenExpires:{
     type: Date,
     index:{
         expireAfterSeconds: 0
-    },
-    select: false
+    }
   }
 }, {timestamps: true} )
 
