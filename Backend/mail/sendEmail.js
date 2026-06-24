@@ -1,25 +1,48 @@
-import { verificationTemplate } from "./emailTemplets.js";
-import { transporter } from "./transporter.config.js";
+import axios from "axios";
+import "dotenv/config";
 
-export const sendEmail = async (email, subject, template) => {
+export const sendEmail = async (to, subject, html) => {
   try {
-    const info = await transporter.sendMail({
-      from: `"Auth Team" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject,
-      text: "This is an account notification email.",
-      html: template,
-    });
+    console.log("Sending email to:", to);
 
-    // console.log("mail sent successfully to", email, "messageId:", info.messageId);
-    return { success: true, messageId: info.messageId };
+    const response = await axios.post(
+      "https://api.brevo.com/v3/smtp/email",
+      {
+        sender: {
+          name: "Auth Team",
+          email: process.env.SENDER_EMAIL,
+        },
+
+        to: [
+          {
+            email: to,
+          },
+        ],
+
+        subject,
+        htmlContent: html,
+      },
+      {
+        headers: {
+          accept: "application/json",
+          "api-key": process.env.BREVO_API_KEY,
+          "content-type": "application/json",
+        },
+      }
+    );
+
+    console.log("Email sent:", response.data);
+
+    return response.data;
+
   } catch (error) {
-    console.error("sendEmail error:", error);
+
+    console.log("BREVO SEND ERROR:");
+
+    console.log(
+      error.response?.data || error.message
+    );
+
     throw error;
   }
 };
-
-// for testing.
-// for(let i=0; i<1; i++){
-//   sendEmail("devendra83538@gmail.com", "Email verification", verificationTemplate(123456))
-// }

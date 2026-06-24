@@ -14,7 +14,7 @@ import LoadingSpinner from './components/LoadingSpinner'
 //redirect authenticated users to home page from login and signup pages
 const RedirectAuthenticatedUser = ({children}) => {
   const {isAuthenticated, user} = useAuthStore()
-  if(isAuthenticated && user.isVerified) {
+  if(isAuthenticated && user?.isVerified) {
     return <Navigate to="/" replace/>
   }
   return children;

@@ -5,7 +5,6 @@ import {connectDB} from "./DB/connectDB.js"
 import "dotenv/config";  //to use .env file we need to configure it first by using "dotenv.config()". This will load the environment variables from the .env file into process.env, allowing us to access them in our code.
 //check why we used this import version of dotenv config
 import path from "path"
-import "./mail/transporter.config.js";
 
 const app = express();
 
